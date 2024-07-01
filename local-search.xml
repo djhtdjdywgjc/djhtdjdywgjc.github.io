@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>AFL++安装</title>
+    <link href="/2024/07/01/AFL++%E5%AE%89%E8%A3%85/"/>
+    <url>/2024/07/01/AFL++%E5%AE%89%E8%A3%85/</url>
+    
+    <content type="html"><![CDATA[<h1 id="AFL-安装"><a href="#AFL-安装" class="headerlink" title="AFL++安装"></a><center>AFL++安装</h1><p>安装依赖项</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> update<br>sudo apt-<span class="hljs-built_in">get</span> install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptools<br>sudo apt-<span class="hljs-built_in">get</span> install -y lld-11 llvm-11 llvm-11-dev clang-11 || sudo apt-<span class="hljs-built_in">get</span> install -y lld llvm llvm-dev clang <br>sudo apt-<span class="hljs-built_in">get</span> install -y gcc-$(gcc --version|head -n1|sed <span class="hljs-string">&#x27;s/.* //&#x27;</span>|sed <span class="hljs-string">&#x27;s/\..*//&#x27;</span>)-plugin-dev libstdc++-$(gcc --version|head -n1|sed <span class="hljs-string">&#x27;s/.* //&#x27;</span>|sed <span class="hljs-string">&#x27;s/\..*//&#x27;</span>)-dev<br></code></pre></td></tr></table></figure><p>编译安装AFL++(编译项目时间很长请耐心等待)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span><br>git <span class="hljs-built_in">clone</span> https://github.com/AFLplusplus/AFLplusplus &amp;&amp; <span class="hljs-built_in">cd</span> AFLplusplus<br><br><span class="hljs-built_in">export</span> LLVM_CONFIG=<span class="hljs-string">&quot;llvm-config-11&quot;</span><br><span class="hljs-comment">#在当前终端中指定LLVM_CONFIG环境</span><br>sudo make distrib<br><span class="hljs-comment">#编译项目</span><br>sudo make install<br><span class="hljs-comment">#安装项目</span><br></code></pre></td></tr></table></figure><p>安装后输入afl-fuzz，出现以下内容即安装成功</p><img src="/2024/07/01/AFL++%E5%AE%89%E8%A3%85/1.png" class="">]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2024华中CISCN</title>
     <link href="/2024/06/24/%E5%8D%8E%E4%B8%ADciscn/"/>
     <url>/2024/06/24/%E5%8D%8E%E4%B8%ADciscn/</url>
