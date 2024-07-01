@@ -16,23 +16,25 @@
   <meta name="author" content="pw">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AFL++安装安装依赖项 1234sudo apt-get updatesudo apt-get install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptoolssudo apt-get install -y lld-11 llvm-11">
+    <meta name="description" content="XpdfCVE-2019-13288 下载并构建目标环境安装(如make和gcc) 1sudo apt install build-essential  下载Xpdf 3.02 12wget https:&#x2F;&#x2F;dl.xpdfreader.com&#x2F;old&#x2F;xpdf-3.02.tar.gztar -xvzf xpdf-3.02.tar.gz  构建Xpdf 1234567891011cd xpdf-3.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AFL++安装">
-<meta property="og:url" content="http://example.com/2024/07/01/AFL++%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="fuzzing101-01">
+<meta property="og:url" content="http://example.com/2024/07/01/fuzzing101-01/index.html">
 <meta property="og:site_name" content="pw">
-<meta property="og:description" content="AFL++安装安装依赖项 1234sudo apt-get updatesudo apt-get install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptoolssudo apt-get install -y lld-11 llvm-11">
+<meta property="og:description" content="XpdfCVE-2019-13288 下载并构建目标环境安装(如make和gcc) 1sudo apt install build-essential  下载Xpdf 3.02 12wget https:&#x2F;&#x2F;dl.xpdfreader.com&#x2F;old&#x2F;xpdf-3.02.tar.gztar -xvzf xpdf-3.02.tar.gz  构建Xpdf 1234567891011cd xpdf-3.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/07/01/AFL++%E5%AE%89%E8%A3%85/1.png">
-<meta property="article:published_time" content="2024-07-01T02:10:03.000Z">
-<meta property="article:modified_time" content="2024-07-01T02:35:53.693Z">
+<meta property="og:image" content="http://example.com/2024/07/01/fuzzing101-01/1.png">
+<meta property="og:image" content="http://example.com/2024/07/01/fuzzing101-01/2.png">
+<meta property="og:image" content="http://example.com/2024/07/01/fuzzing101-01/3.png">
+<meta property="article:published_time" content="2024-07-01T03:10:03.000Z">
+<meta property="article:modified_time" content="2024-07-01T06:03:02.745Z">
 <meta property="article:author" content="pw">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/07/01/AFL++%E5%AE%89%E8%A3%85/1.png">
+<meta name="twitter:image" content="http://example.com/2024/07/01/fuzzing101-01/1.png">
   
   
   
-  <title>AFL++安装 - pw</title>
+  <title>fuzzing101-01 - pw</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +229,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="AFL++安装"></span>
+            <span id="subtitle" data-typed-text="fuzzing101-01"></span>
           
         </div>
 
@@ -238,7 +240,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-01 10:10" pubdate>
+        <time datetime="2024-07-01 11:10" pubdate>
           2024年7月1日 上午
         </time>
       </span>
@@ -250,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          128 字
+          590 字
         
       </span>
     
@@ -261,7 +263,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -306,19 +308,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">AFL++安装</h1>
+            <h1 id="seo-header">fuzzing101-01</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="AFL-安装"><a href="#AFL-安装" class="headerlink" title="AFL++安装"></a><center>AFL++安装</h1><p>安装依赖项</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-built_in">get</span> update<br>sudo apt-<span class="hljs-built_in">get</span> install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptools<br>sudo apt-<span class="hljs-built_in">get</span> install -y lld-11 llvm-11 llvm-11-dev clang-11 || sudo apt-<span class="hljs-built_in">get</span> install -y lld llvm llvm-dev clang <br>sudo apt-<span class="hljs-built_in">get</span> install -y gcc-$(gcc --version|head -n1|sed <span class="hljs-string">&#x27;s/.* //&#x27;</span>|sed <span class="hljs-string">&#x27;s/\..*//&#x27;</span>)-plugin-dev libstdc++-$(gcc --version|head -n1|sed <span class="hljs-string">&#x27;s/.* //&#x27;</span>|sed <span class="hljs-string">&#x27;s/\..*//&#x27;</span>)-dev<br></code></pre></td></tr></table></figure>
+                <h1 id="Xpdf"><a href="#Xpdf" class="headerlink" title="Xpdf"></a><center>Xpdf</h1><p>CVE-2019-13288</p>
+<h2 id="下载并构建目标"><a href="#下载并构建目标" class="headerlink" title="下载并构建目标"></a>下载并构建目标</h2><p>环境安装(如make和gcc)</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt <span class="hljs-keyword">install</span> build-essential<br></code></pre></td></tr></table></figure>
 
-<p>编译安装AFL++(编译项目时间很长请耐心等待)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-variable">$HOME</span><br>git <span class="hljs-built_in">clone</span> https://github.com/AFLplusplus/AFLplusplus &amp;&amp; <span class="hljs-built_in">cd</span> AFLplusplus<br><br><span class="hljs-built_in">export</span> LLVM_CONFIG=<span class="hljs-string">&quot;llvm-config-11&quot;</span><br><span class="hljs-comment">#在当前终端中指定LLVM_CONFIG环境</span><br>sudo make distrib<br><span class="hljs-comment">#编译项目</span><br>sudo make install<br><span class="hljs-comment">#安装项目</span><br></code></pre></td></tr></table></figure>
+<p>下载Xpdf 3.02</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">wget</span> https://dl.xpdfreader.com/old/xpdf-<span class="hljs-number">3</span>.<span class="hljs-number">02</span>.tar.gz<br><span class="hljs-attribute">tar</span> -xvzf xpdf-<span class="hljs-number">3</span>.<span class="hljs-number">02</span>.tar.gz<br></code></pre></td></tr></table></figure>
 
-<p>安装后输入afl-fuzz，出现以下内容即安装成功</p>
-<img src="/2024/07/01/AFL++%E5%AE%89%E8%A3%85/1.png" srcset="/img/loading.gif" lazyload class="">
+<p>构建Xpdf</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> xpdf-3.02<br>sudo apt update &amp;&amp; sudo apt install -y build-essential gcc<br><br><span class="hljs-string">./configure</span> <span class="hljs-params">--prefix=</span><span class="hljs-string">&quot;你需要存放的路径/install/&quot;</span><br><span class="hljs-comment">#./configure: 这是一个脚本，用于检查系统的环境并生成适当的 Makefile。</span><br><span class="hljs-comment">#--prefix=&quot;$HOME/fuzzing_xpdf/install/&quot;: 这是一个配置选项，指定软件安装的前缀路径。所有的安装文件（例如可执行文件、库文件等）都会被安装到这个路径下。</span><br><br>make<br><span class="hljs-comment">#会读取当前目录下的Makefile文件并执行其中的指令</span><br>make install<br><span class="hljs-comment">#将编译好的程序、库文件和其他资源文件安装道系统的指定目录中</span><br></code></pre></td></tr></table></figure>
+
+<p>下载pdf示例用于测试</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/mozilla/</span>pdf.js-sample-files<span class="hljs-regexp">/raw/m</span>aster/helloworld.pdf<br><br>上一步存放的路径<span class="hljs-regexp">/install/</span>bin<span class="hljs-regexp">/pdfinfo -box -meta pfd示例存放的路径/</span>pdf_examples/helloworld.pdf<br></code></pre></td></tr></table></figure>
+
+<p>​	出现下面所示说明xpdf搭建成功</p>
+<img src="/2024/07/01/fuzzing101-01/1.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="AFL-编译项目开始fuzz"><a href="#AFL-编译项目开始fuzz" class="headerlink" title="AFL++编译项目开始fuzz"></a>AFL++编译项目开始fuzz</h2><p>首先将之间编译的内容删除并清空</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -r 你的路径/install (就是之间指定存放install的地方)<br><span class="hljs-built_in">cd</span> 你的路径/xpdf-3.02<br>make clean<br></code></pre></td></tr></table></figure>
+
+<p>用afl-clang-fast编译插桩</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">cd 你的路径/xpdf-3.02<br><span class="hljs-built_in">export</span> <span class="hljs-attribute">LLVM_CONFIG</span>=<span class="hljs-string">&quot;llvm-config-11&quot;</span><br><br><span class="hljs-attribute">CC</span>=<span class="hljs-variable">$HOME</span>/AFLplusplus/afl-clang-fast <span class="hljs-attribute">CXX</span>=<span class="hljs-variable">$HOME</span>/AFLplusplus/afl-clang-fast++ ./configure <span class="hljs-attribute">--prefix</span>=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/&quot;</span><br><span class="hljs-comment">#其中的CC和CXX意思是指定c和c++的编译器分别为afl-clang-fast和afl-clang-fast++</span><br><br>make<br>make install<br></code></pre></td></tr></table></figure>
+
+<p>编译完成后使用afl-fuzz开始编译</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs swift">afl<span class="hljs-operator">-</span>fuzz <span class="hljs-operator">-</span>i 你的路径<span class="hljs-regexp">/pdf_examples/</span> <span class="hljs-operator">-</span>o 你指定的输出<span class="hljs-regexp">/out/</span> <span class="hljs-operator">-</span>s <span class="hljs-number">123</span> <span class="hljs-operator">--</span> 你的路径<span class="hljs-regexp">/install/</span>bin<span class="hljs-regexp">/pdftotext @@ 你的路径/</span>output<br><br><span class="hljs-operator">-</span>i 表示我们必须放置输入用例的目录（又称文件示例）<br><span class="hljs-operator">-</span>o 表示 <span class="hljs-type">AFL</span><span class="hljs-operator">++</span> 存储突变文件的目录<br><span class="hljs-operator">-</span>s 表示要使用的静态随机种子<br>@<span class="hljs-meta">@是占位符目标的命令行，AFL</span> 将用每个输入文件名替换该命令行<br><br></code></pre></td></tr></table></figure>
+
+<img src="/2024/07/01/fuzzing101-01/2.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>​	当看到saved crashes :有记录时就可以ctrl+c退出查看crash了，之后便是调试查看是什么问题了(由于我是已经跑完了再写的blog，所以忘记截图了，这里用下fuzzing101中的截图)</p>
+<h2 id="调试查看结果"><a href="#调试查看结果" class="headerlink" title="调试查看结果"></a>调试查看结果</h2><p>重新编译程序</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs abnf">你的路径/xpdf-<span class="hljs-number">3.02</span>/<br>make clean<br><span class="hljs-attribute">CFLAGS</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;-g -O0&quot;</span> CXXFLAGS<span class="hljs-operator">=</span><span class="hljs-string">&quot;-g -O0&quot;</span><br>make<br></code></pre></td></tr></table></figure>
+
+<p>开始调试</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">gdb</span> --args install/bin/pdftotext out/default/crashes/id:<span class="hljs-number">000000</span>,sig:<span class="hljs-number">11</span>,src:<span class="hljs-number">000703</span>,time:<span class="hljs-number">4193216</span>,execs:<span class="hljs-number">1820460</span>,op:havoc,rep:<span class="hljs-number">5</span> output<br></code></pre></td></tr></table></figure>
+
+<img src="/2024/07/01/fuzzing101-01/3.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>发现原因是因为一直在循环</p>
+
                 
               </div>
             
@@ -335,8 +367,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>AFL++安装</div>
-      <div>http://example.com/2024/07/01/AFL++安装/</div>
+      <div>fuzzing101-01</div>
+      <div>http://example.com/2024/07/01/fuzzing101-01/</div>
     </div>
     <div class="license-meta">
       
@@ -380,18 +412,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/01/fuzzing101-01/" title="fuzzing101-01">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">fuzzing101-01</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/24/%E5%8D%8E%E4%B8%ADciscn/" title="2024华中CISCN">
-                        <span class="hidden-mobile">2024华中CISCN</span>
+                      <a href="/2024/07/01/AFL++%E5%AE%89%E8%A3%85/" title="AFL++安装">
+                        <span class="hidden-mobile">AFL++安装</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
