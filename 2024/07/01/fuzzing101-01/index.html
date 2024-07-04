@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/2024/07/01/fuzzing101-01/5.png">
 <meta property="og:image" content="http://example.com/2024/07/01/fuzzing101-01/6.png">
 <meta property="article:published_time" content="2024-07-01T03:10:03.000Z">
-<meta property="article:modified_time" content="2024-07-02T01:56:31.503Z">
+<meta property="article:modified_time" content="2024-07-04T03:26:00.578Z">
 <meta property="article:author" content="pw">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2024/07/01/fuzzing101-01/1.png">
@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          896 字
+          1.1k 字
         
       </span>
     
@@ -266,7 +266,7 @@
         
         
         
-          8 分钟
+          9 分钟
         
       </span>
     
@@ -360,7 +360,7 @@
 <img src="/2024/07/01/fuzzing101-01/5.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>配置指令为</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">cmake <span class="hljs-attribute">-DCMAKE_BUILD_TYPE</span>=Release <span class="hljs-attribute">-DCMAKE_C_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_CXX_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_INSTALL_PREFIX</span>=<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">cmake <span class="hljs-attribute">-DCMAKE_BUILD_TYPE</span>=Release <span class="hljs-attribute">-DCMAKE_C_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_CXX_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_INSTALL_PREFIX</span>=<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/<br><br><span class="hljs-comment">#-DCMAKE_BUILD_TYPE=Release: 这个选项设置了构建类型为 Release，通常意味着会启用优化，同时可能会包含一些限制性的调试符号。</span><br><br><span class="hljs-comment">#-DCMAKE_C_FLAGS=&quot;-fsanitize=address -g&quot;: 这个选项设置了 C 语言文件的编译选项。-fsanitize=address 启用了 AddressSanitizer，用于在运行时检测内存错误（比如使用已释放的内存或者越界访问）。-g 选项则在编译后的二进制文件中包含调试符号。(这里和AFL_USE_ASAN还是有点区别的，一个是用于构建环境，另一个是用于模糊测试，并不只用作用于构建环境)</span><br></code></pre></td></tr></table></figure>
 
 <p>当然，想要用afl进行插桩编译时配置命令则要加上afl的c和c++的编译器</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">export</span> <span class="hljs-attribute">LLVM_CONFIG</span>=<span class="hljs-string">&quot;llvm-config-11&quot;</span><br><br>cmake <span class="hljs-attribute">-DCMAKE_BUILD_TYPE</span>=Debug /home/pw/fuzzing_xpdf/xpdf-4.04 <span class="hljs-attribute">-DCMAKE_INSTALL_PREFIX</span>=<span class="hljs-variable">$HOME</span>/fuzzing_xpdf/install/ <span class="hljs-attribute">-DCMAKE_C_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_CXX_FLAGS</span>=<span class="hljs-string">&quot;-fsanitize=address -g&quot;</span> <span class="hljs-attribute">-DCMAKE_CXX_COMPILER</span>=/home/fuzz_tools/AFLplusplus/afl-clang-fast++ -DCMAKE_CC_COMPIL<br><span class="hljs-attribute">ER</span>=/home/fuzz_tools/AFLplusplus/afl-clang-fast<br><span class="hljs-comment">#记得看下自己的路径</span><br><br><span class="hljs-attribute">AFL_USE_ASAN</span>=1 make<br>sudo <span class="hljs-attribute">AFL_USE_ASAN</span>=1 make install<br><span class="hljs-comment">#AFL_USE_ASAN=1 是一个环境变量设置，用于在编译过程中启用 AddressSanitizer (ASAN) 与 American Fuzzy Lop (AFL) 结合使用。其主要作用是检测内存错误，如缓冲区溢出、未初始化内存使用、内存泄漏等。</span><br><br></code></pre></td></tr></table></figure>
